@@ -1,0 +1,62 @@
+# JS URL Extractor Pro 配置文件
+
+# 网络请求设置
+network:
+  timeout: 15
+  max_retries: 3
+  verify_ssl: false
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+# 并发设置
+concurrency:
+  max_workers: 5
+  delay_between_requests: 0.5
+
+# 目录设置
+directories:
+  input_dir: "input"
+  output_dir: "output"
+  temp_dir: "temp"
+  default_input_file: "file.txt"
+  default_output_file: "urls_extracted.txt"
+
+# URL 过滤设置
+url_filter:
+  excluded_schemes:
+    - "javascript:"
+    - "data:"
+    - "mailto:"
+    - "tel:"
+    - "#"
+  excluded_extensions:
+    - ".css"
+    - ".png"
+    - ".jpg"
+    - ".jpeg"
+    - ".gif"
+    - ".svg"
+    - ".ico"
+    - ".woff"
+    - ".woff2"
+    - ".ttf"
+    - ".eot"
+  min_url_length: 5
+  max_url_length: 2048
+
+# 正则表达式模式
+# 正则表达式模式
+regex_patterns:
+  absolute_url: "https?://[^\\s\"'<>${}\\]\\[]+(?<!\\${)"
+  double_quote_path: "\"(/[^\"\\s<>${}\\]\\[]+)\""
+  single_quote_path: "'(/[^'\\s<>${}\\]\\[]+)'"
+  variable_path: "[\"']([^\"']*(?:api|route|endpoint|url|path)[^\"']*)[\"']"
+  fetch_url: "fetch\\s*\\(\\s*[\"']([^\"']+)[\"']"
+  axios_url: "axios\\.(?:get|post|put|delete)\\s*\\(\\s*[\"']([^\"']+)[\"']"
+  import_url: "import\\s*\\(?\\s*[\"']([^\"']+)[\"']"
+
+# 日志设置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  save_to_file: true
+  log_file: "extractor.log"
